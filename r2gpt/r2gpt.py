@@ -45,14 +45,10 @@ def main():
 
     chat_completion = openai.ChatCompletion.create(model=model, messages=messages, stream=True)
 
-    try:
-        for chunk in chat_completion:
-            delta = chunk.choices[0].delta
-            if 'content' in delta:
-                sys.stdout.write(delta['content'])
-                sys.stdout.flush()
-    except KeyboardInterrupt:
-        return
+    print('Please wait! This might take a while...')
+    chat_completion = openai.ChatCompletion.create(model=model, messages=messages)
+
+    print('\n', chat_completion['choices'][0]['message']['content'])
 
 
 
